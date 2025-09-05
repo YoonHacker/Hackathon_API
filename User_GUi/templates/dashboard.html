@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+<article>
+  <h4>Dashboard (Prototype)</h4>
+  <p>View alerts and ambulances (for demo & judging).</p>
+  <section>
+    <h5>Recent Alerts</h5>
+    <table>
+      <thead><tr><th>ID</th><th>Time</th><th>Lat</th><th>Lng</th><th>Triage</th><th>Notes</th></tr></thead>
+      <tbody>
+        {% for a in alerts %}
+          <tr>
+            <td>{{ a.id }}</td>
+            <td>{{ a.created_at }}</td>
+            <td>{{ a.lat }}</td>
+            <td>{{ a.lng }}</td>
+            <td>{{ a.triage_level }}</td>
+            <td>{{ a.notes }}</td>
+          </tr>
+        {% else %}
+          <tr><td colspan="6">No alerts</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+  <section>
+    <h5>Ambulances</h5>
+    <table>
+      <thead><tr><th>ID</th><th>Name</th><th>Lat</th><th>Lng</th><th>Status</th></tr></thead>
+      <tbody>
+        {% for b in ambulances %}
+          <tr><td>{{ b.id }}</td><td>{{ b.name }}</td><td>{{ b.lat }}</td><td>{{ b.lng }}</td><td>{{ b.status }}</td></tr>
+        {% else %}
+          <tr><td colspan="5">No ambulances</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+</article>
+{% endblock %}

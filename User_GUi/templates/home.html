@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block content %}
+<article>
+  <h4>Home</h4>
+  <p><span class="pill">Design:</span> Simple • Offline-first • Multilingual</p>
+  <div class="grid-2">
+    <section>
+      <h5>Nearby Ambulances (Map)</h5>
+      <div id="map"></div>
+      <details style="margin-top:.5rem;">
+        <summary>About this map</summary>
+        <p>Browser geolocation is used to set your position. Ambulances are dummy entries from DB.</p>
+      </details>
+      <div style="margin-top:.75rem;">
+        <a href="{{ url_for('sos') }}" class="contrast">Go to SOS</a>
+        <a href="{{ url_for('triage') }}" class="secondary">Describe Symptoms</a>
+      </div>
+    </section>
+    <aside>
+      <h5>Quick Actions</h5>
+      <form action="{{ url_for('sos') }}" method="get">
+        <button class="sos-btn">🚨 Quick SOS</button>
+      </form>
+      <div style="margin-top:0.8rem;">
+        <a href="{{ url_for('first_aid') }}" class="secondary">📘 First Aid Tips</a>
+        <a href="{{ url_for('contacts') }}" class="secondary">📞 Contact Manager</a>
+      </div>
+      <hr/>
+      <h5>Demo Notes</h5>
+      <ul>
+        <li>Click <em>Quick SOS</em> to create an alert (stored in DB)</li>
+        <li>Map shows dummy ambulances; integrate Nokia API for ETA-aware dispatch</li>
+      </ul>
+    </aside>
+  </div>
+</article>
+{% endblock %}
+
+{% block scripts %}
+<script>
+let map, userMarker;
+
+function initMap(lat, lng) {
+  map = L.map('map').setView([lat, lng], 13);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
+  userMarker = L.marker([lat, lng]).addTo(map).bindPopup("You are here").openPopup();
+
+  // load ambulances from server (dummy API route)
+  fetch("{{ url_for('api_ambulances') }}").then(r=>r.json()).then(data=>{
+    data.forEach(a=>{
+      L.marker([a.lat, a.lng]).addTo(map).bindPopup(a.name + " (" + a.status + ")");
+    })
+  });
+}
+
+function locate() {
+  if (!navigator.geolocation) {
+    initMap(28.6139,77.2090); return;
+  }
+  navigator.geolocation.getCurrentPosition((p)=>{
+    initMap(p.coords.latitude, p.coords.longitude);
+  }, ()=>initMap(28.6139,77.2090), {enableHighAccuracy:true, timeout:7000});
+}
+locate();
+</script>
+{% endblock %}

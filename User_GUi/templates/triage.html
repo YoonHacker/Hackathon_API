@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<article>
+  <h4>🤖 AI Symptom Input</h4>
+  <p>Describe the symptoms in short text. Example: "Severe bleeding and unconscious".</p>
+  <form method="post">
+    <textarea name="symptoms" rows="4" placeholder="Type symptoms..." required>{{ symptoms or '' }}</textarea>
+    <input name="notes" placeholder="notes (optional)" value="{{ notes or '' }}">
+    <button type="submit">Classify Urgency</button>
+  </form>
+  {% if triage %}
+    <p><strong>Triage Result:</strong> <mark>{{ triage }}</mark></p>
+    <p class="footer-note">Demo triage (not medical advice).</p>
+  {% endif %}
+</article>
+{% endblock %}

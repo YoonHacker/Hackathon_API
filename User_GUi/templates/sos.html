@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<article>
+  <h4>🚨 SOS</h4>
+  <p>Send an emergency alert with location and profile details.</p>
+  <form method="post">
+    <label>Additional notes (optional)
+      <input name="notes" placeholder="short note...">
+    </label>
+    <button type="submit" class="sos-btn">Send SOS Now</button>
+  </form>
+  <hr/>
+  <p><strong>Status:</strong> {{ status }}</p>
+  <details>
+    <summary>Backend actions (demo)</summary>
+    <ol>
+      <li>Capture last known location (from Home map)</li>
+      <li>Save alert to local DB</li>
+      <li>Call Nokia routing (stubbed) to find nearest ambulance</li>
+      <li>Optionally send SMS to emergency contact (if configured)</li>
+    </ol>
+  </details>
+</article>
+{% endblock %}
