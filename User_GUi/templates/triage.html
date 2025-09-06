@@ -2,15 +2,27 @@
 {% block content %}
 <article>
   <h4>🤖 AI Symptom Input</h4>
-  <p>Describe the symptoms in short text. Example: "Severe bleeding and unconscious".</p>
+  <p>Please describe the patient’s symptoms in short text. 
+     Example: <em>"Severe bleeding and unconscious"</em>.</p>
+
   <form method="post">
     <textarea name="symptoms" rows="4" placeholder="Type symptoms..." required>{{ symptoms or '' }}</textarea>
-    <input name="notes" placeholder="notes (optional)" value="{{ notes or '' }}">
+    <input name="notes" placeholder="Additional notes (optional)" value="{{ notes or '' }}">
     <button type="submit">Classify Urgency</button>
   </form>
+
   {% if triage %}
-    <p><strong>Triage Result:</strong> <mark>{{ triage }}</mark></p>
-    <p class="footer-note">Demo triage (not medical advice).</p>
+    <hr/>
+    <p><strong>Triage Result:</strong> 
+       <mark>{{ triage }}</mark>
+    </p>
+    <p class="footer-note"><em>Note: This triage is AI-assisted and for demo purposes only. Not a substitute for medical advice.</em></p>
   {% endif %}
+  {% if triage %}
+  <p><strong>Triage Result:</strong> <mark>{{ triage }}</mark></p>
+  {% if "fallback" in triage %}
+    <p style="color:orange"><em>⚠️ Using fallback triage (AI quota exceeded).</em></p>
+  {% endif %}
+{% endif %}
 </article>
 {% endblock %}
