@@ -6,8 +6,14 @@
   <ul>
     <li><a href="tel:108">Dial-108 (Emergency)</a></li>
     <li><a href="tel:112">Dial-112 (ERSS)</a></li>
-    {% if profile.get('emergency_contact_phone') %}
-      <li><a href="tel:{{ profile['emergency_contact_phone'] }}">Family: {{ profile['emergency_contact_name'] or 'Emergency Contact' }}</a></li>
+
+    {% if p and p.get('emergency_contact_phone') %}
+      <li>
+        <a href="tel:{{ p['emergency_contact_phone'] }}">
+          Family: {{ p['emergency_contact_name'] or 'Emergency Contact' }}
+          ({{ p['emergency_contact_phone'] }})
+        </a>
+      </li>
     {% else %}
       <li><em>Add an emergency contact in Profile</em></li>
     {% endif %}

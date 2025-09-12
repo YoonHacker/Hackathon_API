@@ -3,9 +3,18 @@
 <article>
   <h4>👤 Profile</h4>
   <form method="post">
-    <label>Full name<input name="full_name" value="{{ p.full_name or '' }}"></label>
-    <label>Age<input type="number" name="age" value="{{ p.age or '' }}"></label>
-    <label>Blood group<input name="blood_group" value="{{ p.blood_group or '' }}"></label>
+    <label>Full name
+      <input name="full_name" value="{{ p.full_name or '' }}">
+    </label>
+
+    <label>Age
+      <input type="number" name="age" value="{{ p.age or '' }}">
+    </label>
+
+    <label>Blood group
+      <input name="blood_group" value="{{ p.blood_group or '' }}">
+    </label>
+
     <label>Language
       <select name="language">
         <option value="en" {{ 'selected' if (p.language or 'en')=='en' else '' }}>English</option>
@@ -13,10 +22,23 @@
         <option value="ta" {{ 'selected' if p.language=='ta' else '' }}>Tamil</option>
       </select>
     </label>
-    <label>Allergies<input name="allergies" value="{{ p.allergies or '' }}"></label>
-    <label>Existing conditions<input name="conditions" value="{{ p.conditions or '' }}"></label>
-    <label>Emergency contact name<input name="emergency_contact_name" value="{{ p.emergency_contact_name or '' }}"></label>
-    <label>Emergency contact phone<input name="emergency_contact_phone" value="{{ p.emergency_contact_phone or '' }}"></label>
+
+    <label>Allergies
+      <input name="allergies" value="{{ p.allergies or '' }}">
+    </label>
+
+    <label>Existing conditions
+      <input name="conditions" value="{{ p.conditions or '' }}">
+    </label>
+
+    <label>Emergency contact name
+      <input name="emergency_contact_name" value="{{ p.emergency_contact_name or '' }}">
+    </label>
+
+    <label>Emergency contact phone
+      <input name="emergency_contact_phone" value="{{ p.emergency_contact_phone or '' }}">
+    </label>
+
     <button type="submit">Save Profile</button>
   </form>
 </article>
